@@ -189,6 +189,7 @@
 		68821F8D256C327F002EED02 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		68821F91256C33B8002EED02 /* ProductsRelease.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProductsRelease.plist; sourceTree = "<group>"; };
 		68821F92256C33B8002EED02 /* Configuration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		68B571BD256D83FB007ED6F2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +209,7 @@
 		68821EB6256C2B7C002EED02 = {
 			isa = PBXGroup;
 			children = (
+				68B571BD256D83FB007ED6F2 /* README.md */,
 				68821EC1256C2B7C002EED02 /* IAPDemo */,
 				68821EDB256C2C89002EED02 /* IAPHelper */,
 				68821EC0256C2B7C002EED02 /* Products */,
