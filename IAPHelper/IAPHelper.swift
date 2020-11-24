@@ -19,7 +19,7 @@ public class IAPHelper: NSObject  {
     // MARK:- Public Properties
 
     /// Singleton access. Use IAPHelper.shared to access all IAPHelper properties and methods.
-    public static let shared: IAPHelper = IAPHelper()  // Test GitHub
+    public static let shared: IAPHelper = IAPHelper()
 
     /// True if a purchase is in progress (excluding a deferred).
     public var isPurchasing = false
