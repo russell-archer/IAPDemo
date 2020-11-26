@@ -227,7 +227,7 @@ Note that this example project is missing some features a real-world app would b
 For this example we’ll assume you’re going to create a demo app from scratch using iOS 14 and Xcode 12. Here are the steps we'll go through:
 
 - [Create the App](#Create-the-App)
-- [Add the StoreKit Framework](Add-the-StoreKit-Framework)
+- [Add the StoreKit Framework](#Add-the-StoreKit-Framework)
 - [Create the StoreKit configuration file](#Create-the-StoreKit-configuration-file)
 - [Add the in-app purchase capability](#Add-the-in-app-purchase-capability)
 - [Enable StoreKit Testing via the Project Scheme](#Enable-StoreKit-Testing-via-the-Project-Scheme)
@@ -604,16 +604,16 @@ Protocol: `SKPaymentTransactionObserver`
 
 # IAPDemo Example
 
-The IAPDemo example provides a more complete, real-world treatment of handling in-app purchases. It has a similar structure to the **HelloIAPWorld** 
-example, however the scope of IAPHelper has been increased to cope with most non-subscription in-app purchase scenarios. Support for subscriptions 
+The **IAPDemo** example provides a more complete, real-world treatment of handling in-app purchases. It has a similar structure to the **HelloIAPWorld** 
+example, however the scope of `IAPHelper` has been increased to cope with most non-subscription in-app purchase scenarios. Support for subscriptions 
 will be added shortly as an enhancement.
 
 The main things to note are:
 
 - On-device receipt validation is supported using OpenSSL
-- In a debug build the StoreKit Configuration file is read by IAPHelper to create a set of supported product ids. In a release build the ProductsRelease.plist 
-file is read to get product ids
-- Purchased product ids are persisted to UserDefaults as a "fallback" list, and then checked against IAP data in the receipt
+- In a debug build the StoreKit `Configuration.storekit` file is read by IAPHelper to create a set of supported product ids. 
+In a release build the `ProductsRelease.plist` file is read to get product ids
+- Purchased product ids are persisted to `UserDefaults` as a "fallback" list, and then checked against IAP data in the receipt
 
 The `IAPHelper.processReceipt()` method is used to validate App Store receipts. If you review this method you'll see the main validation flow:
 
@@ -628,8 +628,8 @@ public func processReceipt() {
           receipt.read(),
           receipt.validate() else {
 
-          IAPLog.event(.receiptProcessingFailure)
-          return
+            IAPLog.event(.receiptProcessingFailure)
+            return
         }
 
     :
@@ -831,7 +831,7 @@ extension IAPReceipt {
                     var iapStartPtr = pointer
                     let receiptProductInfo = IAPReceiptProductInfo(with: &iapStartPtr, payloadLength: length)
                     if let rpi = receiptProductInfo {
-                        inAppReceipts.append(rpi)
+                        inAppReceipts.append(rpi)  // Cache in-app purchase record
                         if let pid = rpi.productIdentifier { validatedPurchasedProductIdentifiers.insert(pid) }
                     }
                     
