@@ -54,9 +54,9 @@ References:
 * [IAPDemo Example](#IAPDemo-Example)
     * [IAPHelper](#IAPHelper)
     * [OpenSSL](#OpenSSL)
-    * [Loading and Reading the Receipt](#Loading-and-Reading-the-Receipt) 
-    * [Validating the Receipt](#Validating-the-Receipt)
+    * [Loading the Receipt](#Loading-the-Receipt) 
     * [Reading In-App Purchase Records](#Reading-In-App-Purchase-Records)
+    * [Validating the Receipt](#Validating-the-Receipt)
 * [Future Enhancements](#Future-Enhancements)
 
 ---
@@ -135,8 +135,8 @@ paymentQueue(_:updatedTransactions:)
 
 When you get a `.purchased` or `.restored` transaction simply add the product identifier for the product to a list of purchased products that your app maintains. 
 The list should be persisted in a database, or even `UserDefaults`. Clearly, this is a far less secure approach than doing receipt validation. However, you may 
-decide that a particular app doesn’t warrant the greater protection and associated complexity provided by receipt validation. See the [HelloIAPWorld]() example 
-below for a discussion of this approach.
+decide that a particular app doesn’t warrant the greater protection and associated complexity provided by receipt validation. See the 
+[HelloIAPWorld](#HelloIAPWorld-Example) example below for a discussion of this approach.
 
 # Sandbox accounts
 Prior to Xcode 12, in order to test in-app purchases you needed to create multiple sandbox test accounts in App Store Connect. Each sandbox account has to have 
@@ -197,8 +197,8 @@ Well, I didn’t get my wish with regard to receipt validation, but I certainly 
 
 Starting with Xcode 12, there’s a new local `StoreKit` test environment that allows you to do early testing of IAPs in the simulator and without having to set 
 anything up in App Store Connect. You can define your products locally in a `StoreKit` Configuration file. Furthermore, you can view and delete transactions, 
-issue refunds, and a whole lot more. There’s also a new `StoreKitTest` framework that enables you to do automated testing of IAPs. The [HelloIAPWorld]() 
-project below includes details on how to create and use a StoreKit configuration file.
+issue refunds, and a whole lot more. There’s also a new `StoreKitTest` framework that enables you to do automated testing of IAPs. 
+The [HelloIAPWorld](#HelloIAPWorld-Example) project below includes details on how to create and use a StoreKit configuration file.
 
 ![](./readme-assets/img3.jpg)
 
@@ -226,12 +226,14 @@ Note that this example project is missing some features a real-world app would b
 
 For this example we’ll assume you’re going to create a demo app from scratch using iOS 14 and Xcode 12. Here are the steps we'll go through:
 
-- [Add the StoreKit Framework]()
-- [Create the StoreKit configuration file]()
-- [Add the in-app purchase capability]()
-- [Enable StoreKit Testing via the Project Scheme]()
-- [Add the StoreKit public certificate]()
-- [Minimal IAPHelper Code]()
+- [Create the App](#Create-the-App)
+- [Add the StoreKit Framework](Add-the-StoreKit-Framework)
+- [Create the StoreKit configuration file](#Create-the-StoreKit-configuration-file)
+- [Add the in-app purchase capability](#Add-the-in-app-purchase-capability)
+- [Enable StoreKit Testing via the Project Scheme](#Enable-StoreKit-Testing-via-the-Project-Scheme)
+- [Add the StoreKit public certificate](#Add-the-StoreKit-public-certificate)
+- [Minimal IAPHelper Code](#Minimal-IAPHelper-Code)
+- [Running the app](#Running-the-app)
 
 ## Create the App
 Create a new iOS app in Xcode named "HelloIAPWorld":
@@ -586,25 +588,54 @@ Purchase a product using `SKPaymentQueue.default().add(SKPayment(product: myProd
 Restore previously made purchases with `SKPaymentQueue.default().restoreCompletedTransactions()`
 
 * `productsRequest(_:didReceive:)`<br/>
-Called when localized product information is returned by the App Store. When this method returns `StoreKit` will immediately call `requestDidFinish(_:)`.
+Called when localized product information is returned by the App Store. When this method returns `StoreKit` will immediately call `requestDidFinish(_:)`.<br/>
 Protocol: `SKProductsRequestDelegate`
 
 * `requestDidFinish(_:)`<br/>
-Called for both `SKProductsRequest(productIdentifiers:)` (request product info) and `SKReceiptRefreshRequest()` (request receipt fresh). 
+Called for both `SKProductsRequest(productIdentifiers:)` (request product info) and `SKReceiptRefreshRequest()` (request receipt fresh).<br/>
 Protocol: `SKRequestDelegate`
 
 * `SKReceiptRefreshRequest()`<br/>
 Ask the App Store to issue new receipt. `requestDidFinish(_:)` called when receipt available
 
 * `paymentQueue(_:updatedTransactions:)`<br/>
-Receive notifications when payments are successful, fail, are restored, etc. Protocol: `SKPaymentTransactionObserver`
+Receive notifications when payments are successful, fail, are restored, etc.<br/> 
+Protocol: `SKPaymentTransactionObserver`
 
 # IAPDemo Example
 
-The IAPDemo example provides a more complete, real-world treatment of handling in-app purchases. 
+The IAPDemo example provides a more complete, real-world treatment of handling in-app purchases. It has a similar structure to the **HelloIAPWorld** 
+example, however the scope of IAPHelper has been increased to cope with most non-subscription in-app purchase scenarios. Support for subscriptions 
+will be added shortly as an enhancement.
 
-## IAPHelper
-todo
+The main things to note are:
+
+- On-device receipt validation is supported using OpenSSL
+- In a debug build the StoreKit Configuration file is read by IAPHelper to create a set of supported product ids. In a release build the ProductsRelease.plist 
+file is read to get product ids
+- Purchased product ids are persisted to UserDefaults as a "fallback" list, and then checked against IAP data in the receipt
+
+The `IAPHelper.processReceipt()` method is used to validate App Store receipts. If you review this method you'll see the main validation flow:
+
+```swift
+public func processReceipt() {
+
+    receipt = IAPReceipt()
+
+    guard receipt.isReachable,
+          receipt.load(),
+          receipt.validateSigning(),
+          receipt.read(),
+          receipt.validate() else {
+
+          IAPLog.event(.receiptProcessingFailure)
+          return
+        }
+
+    :
+    :
+}
+```
 
 ## OpenSSL
 IAPHelper uses [OpenSSL](https://www.openssl.org) to validate the App Store receipt and read its contents. Building OpenSSL for iOS is not totally straightforward. 
@@ -636,9 +667,7 @@ The `armv7`  32-bit architecture is an older variant of the 32-bit ARM CPU.
 
 If we build on an M1 Mac for the simulator we get the following error: 
 
-```
-libcrypto.a(tasn_typ.o), building for iOS Simulator, but linking in object file built for iOS, for architecture arm64
-```
+`libcrypto.a(tasn_typ.o), building for iOS Simulator, but linking in object file built for iOS, for architecture arm64`
 
 Currently, I can't find a solution to this issue. I wonder if it's because the OpenSSL binaries were built for iOS arm64, which is in some way different for the 
 arm64 architecture which the simulator running on the M1 Mac expects?  
@@ -654,20 +683,257 @@ points to the location of the App Store receipt, is always nil.
 
 Until a solution is found you will need to build and deploy IAPDemo to a real device if you use an M1-based Mac.
 
-## Loading and Reading the Receipt
-todo
+## Loading the Receipt
+The `IAPReceipt` class encapsulates the main features and data of the App Store receipt. This includes a `Set<ProductId>` that holds a collection of 
+purchased product ids that have been validated against data in the App Store receipt.
 
-## Validating the Receipt
-todo
+The `load()` method of the `IAPReceipt` class loads the receipt and performs basic validation:
+
+```swift
+extension IAPReceipt {
+    
+    /// Load the receipt data from the main bundle and cache it. Basic validation of the receipt is done.
+    /// We check its format, if it has a signature and if contains data. After loading the receipt you
+    /// should call validateSigning() to check the receipt has been correctly signed, then read its IAP
+    /// data using read(). You can then validate() the receipt.
+    /// - Returns: Returns true if loaded correctly, false otherwise.
+    public func load() -> Bool {
+        
+        // Get the URL of the receipt file
+        guard let receiptUrl = Bundle.main.appStoreReceiptURL else {
+            IAPLog.event(.receiptLoadFailure)
+            return false
+        }
+        
+        // Read the encrypted receipt container file as Data
+        guard let data = try? Data(contentsOf: receiptUrl) else {
+            IAPLog.event(.receiptLoadFailure)
+            return false
+        }
+        
+        // Using OpenSSL create a buffer to read the PKCS #7 container into
+        let receiptBIO = BIO_new(BIO_s_mem())  // The buffer we will write into
+        let receiptBytes: [UInt8] = .init(data)  // The encrytped data as an array of bytes
+        BIO_write(receiptBIO, receiptBytes, Int32(data.count))  // Write the data to the receiptBIO buffer
+        let receiptPKCS7 = d2i_PKCS7_bio(receiptBIO, nil) // Now convert the buffer into the required PKCS7 struct
+        BIO_free(receiptBIO)  // Free the buffer
+
+        // Check the PKCS7 container exists
+        guard receiptPKCS7 != nil else {
+            IAPLog.event(.receiptLoadFailure)
+            return false
+        }
+        
+        // Check the PKCS7 container has a signature
+        guard pkcs7IsSigned(pkcs7: receiptPKCS7!) else {
+            IAPLog.event(.receiptLoadFailure)
+            return false
+        }
+        
+        // Check the PKCS7 container is of the correct data type
+        guard pkcs7IsData(pkcs7: receiptPKCS7!) else {
+            IAPLog.event(.receiptLoadFailure)
+            return false
+        }
+        
+        receiptData = receiptPKCS7  // Cache the PKCS7 data
+        IAPLog.event(.receiptLoadSuccess)
+
+        return true
+    }
+    
+    func pkcs7IsSigned(pkcs7: UnsafeMutablePointer<PKCS7>) -> Bool {
+        // Convert the object in the PKCS7 struct to an Int32 and compare it to the OpenSSL NID constant
+        OBJ_obj2nid(pkcs7.pointee.type) == NID_pkcs7_signed
+    }
+    
+    func pkcs7IsData(pkcs7: UnsafeMutablePointer<PKCS7>) -> Bool {
+        // Convert the object in the PKCS7 struct to an Int32 and compare it to the OpenSSL NID constant
+        OBJ_obj2nid(pkcs7.pointee.d.sign.pointee.contents.pointee.type) == NID_pkcs7_data
+    }
+}
+```
 
 ## Reading In-App Purchase Records
-todo
+The `read()` method of the `IAPReceipt` class reads the receipt's in-app purchase data and caches it:
+
+```swift
+extension IAPReceipt {
+    
+    /// Read internal receipt data into a cache.
+    /// - Returns: Returns true if all expected data was present and correctly read from the receipt, false otherwise.
+    public func read() -> Bool {
+        // Get a pointer to the start and end of the ASN.1 payload
+        let receiptSign = receiptData?.pointee.d.sign
+        let octets = receiptSign?.pointee.contents.pointee.d.data
+        var pointer = UnsafePointer(octets?.pointee.data)
+        let end = pointer!.advanced(by: Int(octets!.pointee.length))
+        
+        var type: Int32 = 0
+        var xclass: Int32 = 0
+        var length: Int = 0
+        
+        ASN1_get_object(&pointer, &length, &type, &xclass, pointer!.distance(to: end))
+        guard type == V_ASN1_SET else {
+            IAPLog.event(.receiptReadFailure)
+            return false
+        }
+        
+        while pointer! < end {
+            ASN1_get_object(&pointer, &length, &type, &xclass, pointer!.distance(to: end))
+            guard type == V_ASN1_SEQUENCE else {
+                IAPLog.event(.receiptReadFailure)
+                return false
+            }
+            
+            guard let attributeType = IAPOpenSSL.asn1Int(p: &pointer, expectedLength: length) else {
+                IAPLog.event(.receiptReadFailure)
+                return false
+            }
+            
+            guard let _ = IAPOpenSSL.asn1Int(p: &pointer, expectedLength: pointer!.distance(to: end)) else {
+                IAPLog.event(.receiptReadFailure)
+                return false
+            }
+            
+            ASN1_get_object(&pointer, &length, &type, &xclass, pointer!.distance(to: end))
+            guard type == V_ASN1_OCTET_STRING else {
+                IAPLog.event(.receiptReadFailure)
+                return false
+            }
+            
+            var p = pointer
+            switch IAPOpenSSLAttributeType(rawValue: attributeType) {
+                    
+                case .BudleVersion: 
+                    bundleVersionString = IAPOpenSSL.asn1String(p: &p, expectedLength: length)
+                    
+                case .ReceiptCreationDate: 
+                    receiptCreationDate = IAPOpenSSL.asn1Date( p: &p, expectedLength: length)
+                    
+                case .OriginalAppVersion: 
+                    originalAppVersion = IAPOpenSSL.asn1String(p: &p, expectedLength: length)
+                    
+                case .ExpirationDate: 
+                    expirationDate = IAPOpenSSL.asn1Date(p: &p, expectedLength: length)
+                    
+                case .OpaqueValue: 
+                    opaqueData = IAPOpenSSL.asn1Data(p: p!, expectedLength: length)
+                    
+                case .ComputedGuid: 
+                    hashData = IAPOpenSSL.asn1Data(p: p!, expectedLength: length)
+                    
+                case .BundleIdentifier:
+                    bundleIdString = IAPOpenSSL.asn1String(p: &pointer, expectedLength: length)
+                    bundleIdData = IAPOpenSSL.asn1Data(p: pointer!, expectedLength: length)
+                    
+                case .IAPReceipt:
+                    var iapStartPtr = pointer
+                    let receiptProductInfo = IAPReceiptProductInfo(with: &iapStartPtr, payloadLength: length)
+                    if let rpi = receiptProductInfo {
+                        inAppReceipts.append(rpi)
+                        if let pid = rpi.productIdentifier { validatedPurchasedProductIdentifiers.insert(pid) }
+                    }
+                    
+                default: break  // Ignore other attributes in receipt
+            }
+            
+            // Advance pointer to the next item
+            pointer = pointer!.advanced(by: length)
+        }
+        
+        hasBeenRead = true
+        IAPLog.event(.receiptReadSuccess)
+        
+        return true
+    }
+}
+```
+
+## Validating the Receipt
+The `validate()` method of the `IAPReceipt` class performs the actual receipt validation:
+
+```swift
+extension IAPReceipt {
+    
+    /// Perform on-device (no network connection required) validation of the app's receipt.
+    /// Returns false if the receipt is invalid or missing, in which case your app should call
+    /// refreshReceipt(completion:) to request an updated receipt from the app store. This may
+    /// result in the user being prompted for their App Store credentials.
+    ///
+    /// We validate the receipt to ensure that it was:
+    ///
+    /// * Created and signed using the Apple x509 root certificate via the App Store
+    /// * Issued for the same version of this app and the user's device
+    ///
+    /// At this point a list of locally stored purchased product ids should have been loaded from the UserDefaults
+    /// dictionary. We need to validate these product ids against the App Store receipt's collection of purchased
+    /// product ids to see that they match. If there are no locally stored purchased product ids (i.e. the user
+    /// hasn't purchased anything) then we don't attempt to validate the receipt. Note that if the user has previously
+    /// purchased products then either using the Restore feature or attempting to re-purchase the product will
+    /// result in a refreshed receipt and the product id of the product will be stored locally in the UserDefaults
+    /// dictionary.
+    /// - Returns: Returns true if the receipt is valid; false otherwise.
+    public func validate() -> Bool {
+        guard let idString = bundleIdString,
+              let version = bundleVersionString,
+              let _ = opaqueData,
+              let hash = hashData else {
+            
+            IAPLog.event(.receiptValidationFailure)
+            return false
+        }
+        
+        guard let appBundleId = Bundle.main.bundleIdentifier else {
+            IAPLog.event(.receiptValidationFailure)
+            return false
+        }
+        
+        guard idString == appBundleId else {
+            IAPLog.event(.receiptValidationFailure)
+            return false
+        }
+        
+        guard let appVersionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String else {
+            IAPLog.event(.receiptValidationFailure)
+            return false
+        }
+        
+        guard version == appVersionString else {
+            IAPLog.event(.receiptValidationFailure)
+            return false
+        }
+        
+        guard hash == computeHash() else {
+            IAPLog.event(.receiptValidationFailure)
+            return false
+        }
+        
+        if let expirationDate = expirationDate {
+            if expirationDate < Date() {
+                IAPLog.event(.receiptValidationFailure)
+                return false
+            }
+        }
+        
+        isValid = true
+        IAPLog.event(.receiptValidationSuccess)
+        
+        return true
+    }
+    
+    /// Compare the set of fallback ProductIds with the receipt's validatedPurchasedProductIdentifiers.
+    /// - Parameter fallbackPids:   Set of locally stored fallback ProductIds.
+    /// - Returns:                  Returns true if both sets are the same, false otherwise.
+    public func compareProductIds(fallbackPids: Set<ProductId>) -> Bool { fallbackPids == validatedPurchasedProductIdentifiers }
+}
+```
 
 # Upcoming Enhancements
 
-- StoreKit Testing
+- StoreKit automated testing
 - IAPHelper support for subscriptions
-- A example of server-based (off device) receipt validation
+- An example of server-based receipt validation
 - Using a service like RevenueCate for receipt validation
 
 
