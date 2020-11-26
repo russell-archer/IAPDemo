@@ -22,42 +22,42 @@ References:
 ---
 
 # Contents
-* Overview
-* Receipt validation options
-    * Server-side validation
-    * On-device validation
-    * Third-party receipt validation service 
-    * No receipt validation
-* Sandbox accounts 
-* Basic Steps
-    * Create an IAP helper class
-    * Define your ProductIds
-    * Add your IAPHelper to the Payment Queue
-    * Request localized product information from the App Store
-    * Present the localized product list to the user and handle purchases 
-    * Process the App Store Receipt
-    * Xcode 12 Improvements
-* HelloIAPWorld Example
-    * Create the App
-    * Add the StoreKit Framework
-    * Create the StoreKit configuration file 
-    * Add the in-app purchase capability
-    * Enable StoreKit Testing via the Project Scheme 
-    * Add the StoreKit public certificate
-    * Minimal IAPHelper Code
-    * Running the app
-* How to Validate Receipts Locally
-    * What actually is a Receipt?
-    * When should you validate the Receipt? 
-    * Overview of the steps to validate a receipt 
-    * Key StoreKit Features
-* IAPDemo Example 
-    * IAPHelper 
-    * OpenSSL
-    * Loading and Reading the Receipt 
-    * Validating the Receipt
-    * Reading In-App Purchase Records
-* Future Enhancements
+* [Overview](#Overview)
+* [Receipt validation options](#Receipt-validation-options)
+    * [Server-side validation](#Server-side-validation)
+    * [On-device validation](#On-device-validation)
+    * [Third-party receipt validation service](#Third-party-receipt-validation-service) 
+    * [No receipt validation](#No-receipt-validation)
+* [Sandbox accounts](#Sandbox-accounts)
+* [Basic Steps](#Basic-Steps)
+    * [Create an IAP helper class](#Create-an-IAP-helper-class)
+    * [Define your ProductIds](#Define-your-ProductIds)
+    * [Add your IAPHelper to the Payment Queue](#Add-your-IAPHelper-to-the-Payment-Queue)
+    * [Request localized product information from the App Store](#Request-localized-product-information-from-the-App-Store)
+    * [Present the localized product list to the user and handle purchases](#Present-the-localized-product-list-to-the-user-and-handle-purchases) 
+    * [Process the App Store Receipt](#Process-the-App-Store-Receipt)
+    * [Xcode 12 Improvements](#Xcode-12-Improvements)
+* [HelloIAPWorld Example](#HelloIAPWorld-Example)
+    * [Create the App](#Create-the-App)
+    * [Add the StoreKit Framework](#Add-the-StoreKit-Framework)
+    * [Create the StoreKit configuration file](#Create-the-StoreKit-configuration-file) 
+    * [Add the in-app purchase capability](#Add-the-in-app-purchase-capability)
+    * [Enable StoreKit Testing via the Project Scheme](#Enable-StoreKit-Testing-via-the-Project-Scheme) 
+    * [Add the StoreKit public certificate](#Add-the-StoreKit-public-certificate)
+    * [Minimal IAPHelper Code](#Minimal-IAPHelper-Code)
+    * [Running the app](#Running-the-app)
+* [How to Validate Receipts Locally](#How-to-Validate-Receipts-Locally)
+    * [What actually is a Receipt?](#What-actually-is-a-Receipt?)
+    * [When should you validate the Receipt?](#When-should-you-validate-the-Receipt?) 
+    * [Overview of the steps to validate a receipt](#Overview-of-the-steps-to-validate-a-receipt) 
+    * [Key StoreKit Features](#Key-StoreKit-Features)
+* [IAPDemo Example](#IAPDemo-Example)
+    * [IAPHelper](#IAPHelper)
+    * [OpenSSL](#OpenSSL)
+    * [Loading and Reading the Receipt](#Loading-and-Reading-the-Receipt) 
+    * [Validating the Receipt](#Validating-the-Receipt)
+    * [Reading In-App Purchase Records](#Reading-In-App-Purchase-Records)
+* [Future Enhancements](#Future-Enhancements)
 
 ---
 
@@ -80,13 +80,15 @@ Anybody wanting to support in-app purchases faces a similar set of challenges:
 
 When I first implemented in-app purchases in one of my iOS apps in 2016 the two main pain-points were:
 
-- [Receipt validation]()
-- [Sandbox accounts](https://www.notion.so/In-App-Purchases-in-iOS-14-cfef71ffcf56486ea503e4807b0a87ff#24bd23af656749669d90122153a98000)
+- [Receipt validation options](#Receipt-validation-options)
+- [Sandbox accounts](#Sandbox-accounts)
 
 # Receipt validation options
 
 The App Store issues an encrypted receipt when in-app purchases are made or restored (when an app’s first installed, no receipt is present). 
-This receipt contains a complete list of all in-app purchases made in the app. There are four receipt validation approaches available:
+This receipt contains a complete list of all in-app purchases made in the app. 
+
+There are four receipt validation approaches available:
 
 1. Server-side receipt validation
 2. On-device receipt validation
@@ -183,7 +185,7 @@ purchase progresses. Note that the App Store presents the user with all the requ
 The App Store will create a new **receipt** when a purchase has been made or restored. The receipt is available when the `paymentQueue(_:updatedTransactions)` 
 method is called. This receipt, which is cryptographically signed and encrypted, contains a complete record of all the IAPs made by the user of your app.
 
-The code discussed in the [HelloIAPWorld]() example below provides a practical example of the above points (receipt validation is covered later).
+The code discussed in the [HelloIAPWorld](#HelloIAPWorld-Example) example below provides a practical example of the above points (receipt validation is covered later).
 
 ## Xcode 12 Improvements
 ![](./readme-assets/wwdc-2020-100835422-large.jpg)
@@ -198,7 +200,7 @@ anything up in App Store Connect. You can define your products locally in a `Sto
 issue refunds, and a whole lot more. There’s also a new `StoreKitTest` framework that enables you to do automated testing of IAPs. The [HelloIAPWorld]() 
 project below includes details on how to create and use a StoreKit configuration file.
 
-![](./readme-assets/img3.png)
+![](./readme-assets/img3.jpg)
 
 These new features are a huge leap forward in terms of making testing substantially easier, quicker to setup, more flexible and less frustrating!
 
@@ -310,14 +312,14 @@ You can now define your products in the StoreKit configuration file:
 
 In this example I set the following fields:
 
-- **Reference Name** 
+- **Reference Name**<br/>
 A descriptive name for the product
 
-- **Product ID** 
+- **Product ID**<br/>
 This the unique code used to identify an IAP product. This same ID will be used in App Store Connect when setting up in-app purchases for production. 
 Note that Product ID is a string that, by convention, uses the format “com.developer.product”, although it can be anything you like
 
-- **Price** 
+- **Price**<br/>
 A hard-coded price for the product. In production your app will request localized price (and other) information from the App Store
 
 By default, the first localization is for the US store. However, you can add as many localizations as required.
@@ -536,21 +538,21 @@ We use the **Certificate Chain** and **Signature** to validate that the receipt 
 ## When should you validate the Receipt?
 You should validate the app's receipt:
 
-- On **start-up**
+- On **start-up**<br/>
 Your app should keep a "fallback" list of successfully purchased product ids that's stored either in **UserDefaults** (easy to work with, less secure) or 
 the **Keychain** (less easy to work with, more secure). This list will be useful if the receipt is missing and there's no network connection allowing a fresh 
 one to be requested from the App Store. At start up validate the receipt and then compare the fallback list against the IAP records in the receipt. 
 If they differ, reset the fallback list to match the receipt
 
-- When a **purchase** succeeds 
+- When a **purchase** succeeds<br/>
 A new receipt will be issued automatically by the App Store when a purchase is successfully completed. The new receipt will be available in the app 
 bundle when  `paymentQueue(_:updatedTransactions:)` is called by StoreKit
 
-- When purchases are **restored**
+- When purchases are **restored**<br/>
 This appears to the app like a succession of purchases. You should validate the receipt when the final transaction is completed 
 (see `paymentQueue(_:updatedTransactions:)`)
 
-- Edge cases
+- Edge cases<br/>
 This includes when the storefront changes (e.g. the user changes from the US to UK App Store) and when rights to an IAP are revoked by the App 
 Store (e.g. the App Store has issued a refund), etc.
 
@@ -560,41 +562,41 @@ Although actual implementation details will vary, the same basic procedure is ad
 
 ![](./readme-assets/img20.png)
 
-We'll go through an example exactly how the validation process is accomplished in the [IAPDemo Example]() below.
+We'll go through an example of exactly how the validation process is accomplished in the [IAPDemo Example](#IAPDemo-Example) below.
 
 ## Key StoreKit Features
 The following are the most important  `StoreKit` protocols, classes and methods you'll encounter:
 
-* `SKPaymentQueue`
+* `SKPaymentQueue`<br/>
 Allows us to observe `StoreKit` transactions
 
-* `SKProduct`
+* `SKProduct`<br/>
 Defines a product (id, title, etc.)
 
-* `SKPayment`
+* `SKPayment`<br/>
 Wrap an `SKProduct` in an `SKPayment` object when purchasing
 
-* `SKProductsRequest(productIdentifiers:)`
+* `SKProductsRequest(productIdentifiers:)`<br/>
 Request localized product info from app store. Note that doing a product request does not result in a fresh receipt
 
-* `SKPaymentQueue.default().add()`
+* `SKPaymentQueue.default().add()`<br/>
 Purchase a product using `SKPaymentQueue.default().add(SKPayment(product: myProduct))`
 
-* `restoreCompletedTransactions()`
+* `restoreCompletedTransactions()`<br/>
 Restore previously made purchases with `SKPaymentQueue.default().restoreCompletedTransactions()`
 
-* `productsRequest(_:didReceive:)`
+* `productsRequest(_:didReceive:)`<br/>
 Called when localized product information is returned by the App Store. When this method returns `StoreKit` will immediately call `requestDidFinish(_:)`.
 Protocol: `SKProductsRequestDelegate`
 
-* `requestDidFinish(_:)`
+* `requestDidFinish(_:)`<br/>
 Called for both `SKProductsRequest(productIdentifiers:)` (request product info) and `SKReceiptRefreshRequest()` (request receipt fresh). 
 Protocol: `SKRequestDelegate`
 
-* `SKReceiptRefreshRequest()`
+* `SKReceiptRefreshRequest()`<br/>
 Ask the App Store to issue new receipt. `requestDidFinish(_:)` called when receipt available
 
-* `paymentQueue(_:updatedTransactions:)`
+* `paymentQueue(_:updatedTransactions:)`<br/>
 Receive notifications when payments are successful, fail, are restored, etc. Protocol: `SKPaymentTransactionObserver`
 
 # IAPDemo Example
@@ -620,13 +622,13 @@ The included builds of the OpenSSL binaries contain the following architectures 
 
 ```
 % lipo -info libcrypto.a 
-Architectures in the fat file: libcrypto.a are: armv7 armv7s **x86_64 arm64** 
+Architectures in the fat file: libcrypto.a are: armv7 armv7s x86_64 arm64 
 
 % lipo -info libssl.a 
-Architectures in the fat file: libssl.a are: armv7 armv7s **x86_64 arm64** 
+Architectures in the fat file: libssl.a are: armv7 armv7s x86_64 arm64 
 ```
 
-Our IAPDemo app only supports devices running `iOS 13` and higher. So IAPDemo supports the iPhone 6s upwards. 
+Our IAPDemo app only supports devices running `iOS 13` and higher. So IAPDemo supports the iPhone 6s and upwards. 
 
 The `arm64` 64-bit ARM CPU architecture has been used since the iPhone 5S and iPad Air, Air 2 and Pro, with the A7 and later chips. 
 The `armv7s` 32-bit architecture is used in Apple's A6 and A6X chips on iPhone 5, iPhone 5C and iPad 4. 
@@ -634,7 +636,9 @@ The `armv7`  32-bit architecture is an older variant of the 32-bit ARM CPU.
 
 If we build on an M1 Mac for the simulator we get the following error: 
 
-`libcrypto.a(tasn_typ.o), building for iOS Simulator, but linking in object file built for iOS, for architecture arm64` 
+```
+libcrypto.a(tasn_typ.o), building for iOS Simulator, but linking in object file built for iOS, for architecture arm64
+```
 
 Currently, I can't find a solution to this issue. I wonder if it's because the OpenSSL binaries were built for iOS arm64, which is in some way different for the 
 arm64 architecture which the simulator running on the M1 Mac expects?  
@@ -659,8 +663,9 @@ todo
 ## Reading In-App Purchase Records
 todo
 
-# Future Enhancements
+# Upcoming Enhancements
 
+- StoreKit Testing
 - IAPHelper support for subscriptions
 - A example of server-based (off device) receipt validation
 - Using a service like RevenueCate for receipt validation
