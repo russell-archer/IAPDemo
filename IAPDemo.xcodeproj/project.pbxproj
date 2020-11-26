@@ -29,7 +29,8 @@
 		6879B0EF256FF23700A04684 /* img11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6879B0D7256FF23700A04684 /* img11.jpg */; };
 		6879B0F0256FF23700A04684 /* img21.png in Resources */ = {isa = PBXBuildFile; fileRef = 6879B0D8256FF23700A04684 /* img21.png */; };
 		6879B0F2256FF23700A04684 /* img5.png in Resources */ = {isa = PBXBuildFile; fileRef = 6879B0DA256FF23700A04684 /* img5.png */; };
-		6879B0F3256FF23700A04684 /* img12.png in Resources */ = {isa = PBXBuildFile; fileRef = 6879B0DB256FF23700A04684 /* img12.png */; };
+		6879B0F7257006FA00A04684 /* img11b.png in Resources */ = {isa = PBXBuildFile; fileRef = 6879B0F6257006FA00A04684 /* img11b.png */; };
+		6879B0FB25700D6400A04684 /* img20b.png in Resources */ = {isa = PBXBuildFile; fileRef = 6879B0FA25700D6400A04684 /* img20b.png */; };
 		68821EC3256C2B7C002EED02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68821EC2256C2B7C002EED02 /* AppDelegate.swift */; };
 		68821EC5256C2B7C002EED02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68821EC4256C2B7C002EED02 /* SceneDelegate.swift */; };
 		68821EC7256C2B7C002EED02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68821EC6256C2B7C002EED02 /* ViewController.swift */; };
@@ -90,7 +91,8 @@
 		6879B0D7256FF23700A04684 /* img11.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img11.jpg; sourceTree = "<group>"; };
 		6879B0D8256FF23700A04684 /* img21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img21.png; sourceTree = "<group>"; };
 		6879B0DA256FF23700A04684 /* img5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img5.png; sourceTree = "<group>"; };
-		6879B0DB256FF23700A04684 /* img12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img12.png; sourceTree = "<group>"; };
+		6879B0F6257006FA00A04684 /* img11b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img11b.png; sourceTree = "<group>"; };
+		6879B0FA25700D6400A04684 /* img20b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img20b.png; sourceTree = "<group>"; };
 		68821EBF256C2B7C002EED02 /* IAPDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IAPDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68821EC2256C2B7C002EED02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68821EC4256C2B7C002EED02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -267,7 +269,7 @@
 				6879B0D4256FF23700A04684 /* img9.png */,
 				6879B0C7256FF23600A04684 /* img10.jpg */,
 				6879B0D7256FF23700A04684 /* img11.jpg */,
-				6879B0DB256FF23700A04684 /* img12.png */,
+				6879B0F6257006FA00A04684 /* img11b.png */,
 				6879B0C9256FF23600A04684 /* img13.jpg */,
 				6879B0CD256FF23600A04684 /* img14.png */,
 				6879B0CA256FF23600A04684 /* img15.jpg */,
@@ -276,6 +278,7 @@
 				6879B0C4256FF23600A04684 /* img18.png */,
 				6879B0D3256FF23700A04684 /* img19.png */,
 				6879B0C6256FF23600A04684 /* img20.png */,
+				6879B0FA25700D6400A04684 /* img20b.png */,
 				6879B0D8256FF23700A04684 /* img21.png */,
 				6879B0CF256FF23600A04684 /* wwdc-2020-100835422-large.jpg */,
 			);
@@ -569,6 +572,7 @@
 				6879B0E3256FF23700A04684 /* demo.gif in Resources */,
 				6879B0E2256FF23700A04684 /* img15.jpg in Resources */,
 				68821F93256C33B8002EED02 /* ProductsRelease.plist in Resources */,
+				6879B0FB25700D6400A04684 /* img20b.png in Resources */,
 				6879B0EC256FF23700A04684 /* img9.png in Resources */,
 				6879B0DD256FF23700A04684 /* img1.png in Resources */,
 				6879B0EF256FF23700A04684 /* img11.jpg in Resources */,
@@ -579,6 +583,7 @@
 				68821ECF256C2B7D002EED02 /* LaunchScreen.storyboard in Resources */,
 				6879B0E7256FF23700A04684 /* wwdc-2020-100835422-large.jpg in Resources */,
 				6879B0E1256FF23700A04684 /* img13.jpg in Resources */,
+				6879B0F7257006FA00A04684 /* img11b.png in Resources */,
 				6879B0E0256FF23700A04684 /* img3.jpg in Resources */,
 				6879B0DC256FF23700A04684 /* img18.png in Resources */,
 				6879B0F0256FF23700A04684 /* img21.png in Resources */,
@@ -588,7 +593,6 @@
 				68821F80256C2F0D002EED02 /* AppleIncRootCertificate.cer in Resources */,
 				6879B0E9256FF23700A04684 /* img8.png in Resources */,
 				6879B0ED256FF23700A04684 /* img16.jpg in Resources */,
-				6879B0F3256FF23700A04684 /* img12.png in Resources */,
 				68821F7B256C2F0D002EED02 /* StoreKitTestCertificate.cer in Resources */,
 				6879B0E5256FF23700A04684 /* img14.png in Resources */,
 				6879B0DE256FF23700A04684 /* img20.png in Resources */,
