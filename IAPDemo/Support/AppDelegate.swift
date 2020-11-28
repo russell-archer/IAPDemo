@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IAPHelper
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

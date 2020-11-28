@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IAPHelper
 
 /// Implement this delegate method to receive requests to purchase a product.
 protocol ProductCellDelegate: class {
