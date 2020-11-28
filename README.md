@@ -4,6 +4,10 @@ Implementing and testing In-App Purchases in Xcode 12 and iOS 14
 **Disclaimer**. The source code presented here is for educational purposes. You may freely reuse and amend this code for use in your own apps. 
 However, you do so entirely at your own risk.
 
+## See on [**IAPHelper** on GitHub](https://github.com/russell-archer/IAPHelper) for  `IAPHelper` source.
+
+---
+
 See **IAPDemo** on [GitHub](https://github.com/russell-archer/IAPDemo) for source code. 
 The **HelloIAPWorld** source is [also available on GitHub](https://github.com/russell-archer/HelloIAPWorld).
 
