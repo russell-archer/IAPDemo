@@ -47,7 +47,7 @@ class ViewController: UIViewController {
             
             if notification == IAPNotification.requestProductsSuccess {
                 
-                self.iap.processReceipt()
+                let _ = self.iap.processReceipt()
                 self.tableView.reloadData()
             }
         }
@@ -122,7 +122,7 @@ extension ViewController: ProductCellDelegate {
             case .purchaseSuccess(productId: let pid):
                 
                 IAPLog.event("Purchase success for product \(pid)")
-                self.iap.processReceipt()
+                let _ = self.iap.processReceipt()
             
             default: break
             }
@@ -143,7 +143,7 @@ extension ViewController: RestoreCellDelegate {
             case .purchaseRestoreSuccess(productId:): fallthrough
             case .purchaseRestoreFailure(productId:):
                 
-                self.iap.processReceipt()
+                let _ = self.iap.processReceipt()
                 self.tableView.reloadData()  // Reload data for a success or failure
             
             default: break

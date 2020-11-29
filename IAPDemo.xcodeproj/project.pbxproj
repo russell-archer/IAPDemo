@@ -48,6 +48,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		684B21F12573DDF900E635FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 68F2C7942571E95700EBA028 /* IAPHelper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6874E6872572D59A006CA636;
+			remoteInfo = IAPHelperTests;
+		};
+		684B21F32573DDF900E635FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 68F2C7942571E95700EBA028 /* IAPHelper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 684B21B22573CDDA00E635FC;
+			remoteInfo = IAPHelperTestHost;
+		};
 		68F2C7982571E95700EBA028 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 68F2C7942571E95700EBA028 /* IAPHelper.xcodeproj */;
@@ -161,9 +175,9 @@
 		68821EB6256C2B7C002EED02 = {
 			isa = PBXGroup;
 			children = (
-				68F2C7942571E95700EBA028 /* IAPHelper.xcodeproj */,
 				68B571BD256D83FB007ED6F2 /* README.md */,
 				6879B0C3256FEBC400A04684 /* readme-assets */,
+				68F2C7942571E95700EBA028 /* IAPHelper.xcodeproj */,
 				68821EC1256C2B7C002EED02 /* IAPDemo */,
 				68821EC0256C2B7C002EED02 /* Products */,
 				68821F8C256C327F002EED02 /* Frameworks */,
@@ -233,6 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				68F2C7992571E95700EBA028 /* IAPHelper.framework */,
+				684B21F22573DDF900E635FC /* IAPHelperTests.xctest */,
+				684B21F42573DDF900E635FC /* IAPHelperTestHost.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,6 +313,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		684B21F22573DDF900E635FC /* IAPHelperTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = IAPHelperTests.xctest;
+			remoteRef = 684B21F12573DDF900E635FC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		684B21F42573DDF900E635FC /* IAPHelperTestHost.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = IAPHelperTestHost.app;
+			remoteRef = 684B21F32573DDF900E635FC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		68F2C7992571E95700EBA028 /* IAPHelper.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
