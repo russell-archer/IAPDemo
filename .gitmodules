@@ -1,0 +1,3 @@
+[submodule "IAPHelper"]
+	path = IAPHelper
+	url = https://russell-archer@github.com/russell-archer/IAPHelper.git
