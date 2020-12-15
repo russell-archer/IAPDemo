@@ -111,6 +111,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		681F509B25781A0D0074E416 /* TestHostConfig.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestHostConfig.storekit; sourceTree = "<group>"; };
 		685A3F612575594F00B9D1BC /* img30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img30.png; sourceTree = "<group>"; };
 		685A3F652575594F00B9D1BC /* img22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img22.png; sourceTree = "<group>"; };
 		685A3F662575594F00B9D1BC /* img26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img26.png; sourceTree = "<group>"; };
@@ -166,7 +167,6 @@
 		685FDC9525742DE800360C5B /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		685FDC9625742DE800360C5B /* AppleIncRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleIncRootCertificate.cer; sourceTree = "<group>"; };
 		685FDC9725742DE800360C5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		685FDC9825742DE800360C5B /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		685FDC9A25742DE800360C5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		685FDC9B25742DE800360C5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		685FDC9C25742DE800360C5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -425,9 +425,9 @@
 			children = (
 				685FDC9625742DE800360C5B /* AppleIncRootCertificate.cer */,
 				685FDC9525742DE800360C5B /* StoreKitTestCertificate.cer */,
+				681F509B25781A0D0074E416 /* TestHostConfig.storekit */,
 				685FDC9C25742DE800360C5B /* Info.plist */,
 				685FDC9425742DE800360C5B /* ProductsRelease.plist */,
-				685FDC9825742DE800360C5B /* Configuration.storekit */,
 				685FDC9B25742DE800360C5B /* AppDelegate.swift */,
 				685FDC9D25742DE800360C5B /* SceneDelegate.swift */,
 				685FDC9325742DE800360C5B /* ViewController.swift */,
@@ -449,33 +449,33 @@
 		685FDCA225742DE800360C5B /* IAPHelper */ = {
 			isa = PBXGroup;
 			children = (
-				685FDCA325742DE800360C5B /* openssl-include */,
-				685FDD0E25742DE800360C5B /* IAPProductInfo.swift */,
-				685FDD0F25742DE800360C5B /* IAPNotification.swift */,
-				685FDD1025742DE800360C5B /* IAPReceipt.swift */,
-				685FDD1125742DE800360C5B /* StoreKitTestCertificate.cer */,
-				685FDD1225742DE800360C5B /* IAPHelper.swift */,
-				685FDD1325742DE800360C5B /* IAPOpenSSL.swift */,
 				685FDD1425742DE800360C5B /* AppleIncRootCertificate.cer */,
-				685FDD1525742DE800360C5B /* IAPReceipt+Validate.swift */,
-				685FDD1625742DE800360C5B /* IAPPersistence.swift */,
-				685FDD1725742DE800360C5B /* IAPReceipt+ValidateSigning.swift */,
-				685FDD1825742DE800360C5B /* IAPHelper+SKRequestDelegate.swift */,
-				685FDD1925742DE800360C5B /* IAPOpenSSLAttributeType.swift */,
-				685FDD1A25742DE800360C5B /* IAPPersistenceProtocol.swift */,
-				685FDD1B25742DE800360C5B /* IAPHelper+AppStore.swift */,
-				685FDD1C25742DE800360C5B /* IAPConstants.swift */,
-				685FDD1D25742DE800360C5B /* IAPHelper+SKProductsRequestDelegate.swift */,
-				685FDD1E25742DE800360C5B /* IAPConfiguration.swift */,
-				685FDD1F25742DE800360C5B /* openssl-lib */,
-				685FDD2225742DE800360C5B /* IAPHelper+SKPaymentTransactionObserver.swift */,
-				685FDD2325742DE800360C5B /* IAPReceipt+Load.swift */,
-				685FDD2425742DE800360C5B /* IAPConfigurationModel.swift */,
+				685FDD1125742DE800360C5B /* StoreKitTestCertificate.cer */,
 				685FDD2525742DE800360C5B /* IAPHelper.h */,
-				685FDD2625742DE800360C5B /* IAPReceipt+Read.swift */,
 				685FDD2725742DE800360C5B /* Info.plist */,
+				685FDD1E25742DE800360C5B /* IAPConfiguration.swift */,
+				685FDD2425742DE800360C5B /* IAPConfigurationModel.swift */,
+				685FDD1C25742DE800360C5B /* IAPConstants.swift */,
+				685FDD1225742DE800360C5B /* IAPHelper.swift */,
+				685FDD1B25742DE800360C5B /* IAPHelper+AppStore.swift */,
+				685FDD2225742DE800360C5B /* IAPHelper+SKPaymentTransactionObserver.swift */,
+				685FDD1D25742DE800360C5B /* IAPHelper+SKProductsRequestDelegate.swift */,
+				685FDD1825742DE800360C5B /* IAPHelper+SKRequestDelegate.swift */,
 				685FDD2825742DE800360C5B /* IAPLog.swift */,
+				685FDD0F25742DE800360C5B /* IAPNotification.swift */,
+				685FDD1325742DE800360C5B /* IAPOpenSSL.swift */,
+				685FDD1925742DE800360C5B /* IAPOpenSSLAttributeType.swift */,
+				685FDD1625742DE800360C5B /* IAPPersistence.swift */,
+				685FDD1A25742DE800360C5B /* IAPPersistenceProtocol.swift */,
+				685FDD0E25742DE800360C5B /* IAPProductInfo.swift */,
+				685FDD1025742DE800360C5B /* IAPReceipt.swift */,
+				685FDD2325742DE800360C5B /* IAPReceipt+Load.swift */,
+				685FDD2625742DE800360C5B /* IAPReceipt+Read.swift */,
+				685FDD1525742DE800360C5B /* IAPReceipt+Validate.swift */,
+				685FDD1725742DE800360C5B /* IAPReceipt+ValidateSigning.swift */,
 				685FDD2925742DE800360C5B /* IAPReceiptProductInfo.swift */,
+				685FDCA325742DE800360C5B /* openssl-include */,
+				685FDD1F25742DE800360C5B /* openssl-lib */,
 			);
 			path = IAPHelper;
 			sourceTree = "<group>";
@@ -1036,6 +1036,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R6BE99W3FU;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/IAPHelper/openssl-include";
 				INFOPLIST_FILE = IAPDemo/Support/Info.plist;
 				LD_GENERATE_MAP_FILE = NO;
