@@ -7,7 +7,7 @@ However, you do so entirely at your own risk.
 ## See on [**IAPHelper** on GitHub](https://github.com/russell-archer/IAPHelper) for  `IAPHelper` source.
 
 ## Updated 31st December 2020
-Added notes on supporting [Support for Strong Customer Authentication transactions in the European Economic Area](#Support-for-Strong-Customer-Authentication-transactions-in-the-European-Economic-Area) 
+Added notes on [Support for Strong Customer Authentication transactions in the European Economic Area](#Support-for-Strong-Customer-Authentication-transactions-in-the-European-Economic-Area) 
 with reference to new a [Apple Support Document](https://developer.apple.com/support/psd2/). 
 
 ---
@@ -1271,6 +1271,7 @@ private func purchaseDeferred(transaction: SKPaymentTransaction) {
     // Do NOT call SKPaymentQueue.default().finishTransaction() for .deferred status
 }
 ```
+
 
 So, initially when the user attempts to purchase a product that requires SCA or ask-to-buy, a transaction with a state of `deferred`
 is generated. Then, when the user authenticates (or when a parent authorizes an ask-to-buy purchase) another transaction with a state of
