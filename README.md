@@ -1,5 +1,7 @@
 # In-App Purchases with Xcode 12 and iOS 14
-Implementing and testing In-App Purchases in Xcode 12 and iOS 14
+Implementing and testing In-App Purchases with StoreKit1 in Xcode 12 and iOS 14.
+
+See also [StoreHelper](https://github.com/russell-archer/StoreHelper) for details on implementing and testing in-app purchases with `StoreKit2` and `StoreHelper` in Xcode 13, Swift 5.5, iOS 15.
 
 **Disclaimer**. The source code presented here is for educational purposes. You may freely reuse and amend this code for use in your own apps. 
 However, you do so entirely at your own risk.
